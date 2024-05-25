@@ -14,7 +14,7 @@ def identify_cluster(data_point, model, scaler):
     return cluster[0]
 
 # Streamlit app
-st.title("KMeans Clustering Visualization")
+st.title("Task:1 Machine Learning - Clustering")
 
 # Read data from Excel files
 train_data = pd.read_excel('train.xlsx')
