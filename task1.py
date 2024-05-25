@@ -107,5 +107,5 @@ if st.button("Identify Cluster"):
     cluster = identify_cluster(new_data_point, kmeans, scaler)
     cluster_color = plt.cm.tab10(cluster)  # Get color from tab10 colormap
     st.write(f"The data point belongs to cluster: {cluster}")
-    st.write(f"Cluster color: {cluster_color}")
-
+    st.write("Cluster color:")
+    st.markdown(f'<div style="width:50px;height:50px;background-color:rgb({cluster_color[0]*255},{cluster_color[1]*255},{cluster_color[2]*255})"></div>', unsafe_allow_html=True)
