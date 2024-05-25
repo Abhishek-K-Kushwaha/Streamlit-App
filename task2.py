@@ -44,7 +44,7 @@ st.write("Predicting on test data...")
 test_pred = clf.predict(test_data.values)
 test_pred_labels = le.inverse_transform(test_pred)
 test_results = pd.DataFrame(test_pred_labels, columns=['Predicted'])
-st.write("""###Predictions for test data:""")
+st.write("""### Predictions for test data:""")
 st.write(test_results)
 
 # Calculate accuracy on the training data
