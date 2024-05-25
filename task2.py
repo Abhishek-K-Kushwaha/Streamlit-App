@@ -37,38 +37,43 @@ clf.fit(X_train, y_train)
 # Evaluate the classifier on the validation set
 y_val_pred = clf.predict(X_val)
 val_accuracy = accuracy_score(y_val, y_val_pred)
-st.write(f'Validation Accuracy: {val_accuracy * 100:.2f}%')
+st.write(f'###Validation Accuracy: {val_accuracy * 100:.2f}%')
 
 # Predict on the test data
 st.write("Predicting on test data...")
 test_pred = clf.predict(test_data.values)
 test_pred_labels = le.inverse_transform(test_pred)
 test_results = pd.DataFrame(test_pred_labels, columns=['Predicted'])
-st.write("Predictions for test data:")
+st.write("###Predictions for test data:")
 st.write(test_results)
 
 # Calculate accuracy on the training data
 y_train_pred = clf.predict(X_train)
 train_accuracy = accuracy_score(y_train, y_train_pred)
-st.write(f'Training Accuracy: {train_accuracy * 100:.2f}%')
+st.write(f'###Training Accuracy: {train_accuracy * 100:.2f}%')
 
-# Calculate training loss over iterations for RandomForest
+# Calculate training and validation loss over iterations for RandomForest
 train_losses = []
+val_losses = []
 
 for n_estimators in range(10, 101, 10):
     clf = RandomForestClassifier(n_estimators=n_estimators, random_state=42)
     clf.fit(X_train, y_train)
     
     train_loss = 1 - clf.score(X_train, y_train)
+    val_loss = 1 - clf.score(X_val, y_val)
     
     train_losses.append(train_loss)
+    val_losses.append(val_loss)
 
-# Plot the training loss
+# Plot the training and validation loss
 fig, ax = plt.subplots(figsize=(10, 6))
-ax.plot(range(10, 101, 10), train_losses, marker='o')
+ax.plot(range(10, 101, 10), train_losses, label='Training Loss')
+ax.plot(range(10, 101, 10), val_losses, label='Validation Loss')
 ax.set_xlabel('Number of Estimators')
-ax.set_ylabel('Training Loss')
-ax.set_title('Training Loss vs. Number of Estimators')
+ax.set_ylabel('Loss')
+ax.set_title('Training and Validation Loss vs. Number of Estimators')
+ax.legend()
 
 st.pyplot(fig)
 
@@ -81,6 +86,4 @@ Random Forest Classifier is chosen for the following reasons:
 - **Implicit Feature Selection**: It automatically selects important features, reducing the need for feature engineering.
 - **Efficiency**: It is computationally efficient and can handle large datasets with high dimensionality.
 - **Versatility**: It can be used for both classification and regression tasks.
-
-Overall, Random Forest Classifier is a powerful algorithm that often yields good results across a variety of datasets without much tuning.
 """)
