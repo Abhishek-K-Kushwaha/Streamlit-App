@@ -52,31 +52,6 @@ y_train_pred = clf.predict(X_train)
 train_accuracy = accuracy_score(y_train, y_train_pred)
 st.write(f'Training Accuracy: {train_accuracy * 100:.2f}%')
 
-# Calculate training and validation loss over iterations for RandomForest
-train_losses = []
-val_losses = []
-
-for n_estimators in range(10, 101, 10):
-    clf = RandomForestClassifier(n_estimators=n_estimators, random_state=42)
-    clf.fit(X_train, y_train)
-    
-    train_loss = 1 - clf.score(X_train, y_train)
-    val_loss = 1 - clf.score(X_val, y_val)
-    
-    train_losses.append(train_loss)
-    val_losses.append(val_loss)
-
-# Plot the training and validation loss
-fig, ax = plt.subplots(figsize=(10, 6))
-ax.plot(range(10, 101, 10), train_losses, label='Training Loss')
-ax.plot(range(10, 101, 10), val_losses, label='Validation Loss')
-ax.set_xlabel('Number of Estimators')
-ax.set_ylabel('Loss')
-ax.set_title('Training and Validation Loss vs. Number of Estimators')
-ax.legend()
-
-st.pyplot(fig)
-
 # Explanation for choosing Random Forest Classifier
 st.write("""
 ### Why Random Forest Classifier?
