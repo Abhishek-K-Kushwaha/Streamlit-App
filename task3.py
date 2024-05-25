@@ -66,7 +66,7 @@ def process_data(input_df):
 
 # Streamlit app
 st.title("Task:3 Python")
-
+st.write("Loading data...)
 # URL of the raw CSV file on GitHub
 csv_url = "raw_data.csv"
 
