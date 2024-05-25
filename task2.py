@@ -37,20 +37,20 @@ clf.fit(X_train, y_train)
 # Evaluate the classifier on the validation set
 y_val_pred = clf.predict(X_val)
 val_accuracy = accuracy_score(y_val, y_val_pred)
-st.write(f'###Validation Accuracy: {val_accuracy * 100:.2f}%')
+st.write(f'Validation Accuracy: {val_accuracy * 100:.2f}%')
 
 # Predict on the test data
 st.write("Predicting on test data...")
 test_pred = clf.predict(test_data.values)
 test_pred_labels = le.inverse_transform(test_pred)
 test_results = pd.DataFrame(test_pred_labels, columns=['Predicted'])
-st.write("###Predictions for test data:")
+st.write("""###Predictions for test data:""")
 st.write(test_results)
 
 # Calculate accuracy on the training data
 y_train_pred = clf.predict(X_train)
 train_accuracy = accuracy_score(y_train, y_train_pred)
-st.write(f'###Training Accuracy: {train_accuracy * 100:.2f}%')
+st.write(f'Training Accuracy: {train_accuracy * 100:.2f}%')
 
 # Calculate training and validation loss over iterations for RandomForest
 train_losses = []
