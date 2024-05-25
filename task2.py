@@ -4,11 +4,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import accuracy_score, log_loss
+from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 
 # Load the data
-st.title('Random Forest Classifier Training and Evaluation')
+st.title('Task:2 Machine Learning - Classification')
 st.write("Loading data...")
 
 train_data = pd.read_excel('train.xlsx')
@@ -44,39 +44,43 @@ st.write("Predicting on test data...")
 test_pred = clf.predict(test_data.values)
 test_pred_labels = le.inverse_transform(test_pred)
 test_results = pd.DataFrame(test_pred_labels, columns=['Predicted'])
-test_results.to_excel('test_predictions.xlsx', index=False)
-
-st.write("Test predictions saved to `test_predictions.xlsx`.")
+st.write("Predictions for test data:")
+st.write(test_results)
 
 # Calculate accuracy on the training data
 y_train_pred = clf.predict(X_train)
 train_accuracy = accuracy_score(y_train, y_train_pred)
 st.write(f'Training Accuracy: {train_accuracy * 100:.2f}%')
 
-# Calculate training and validation loss (log loss) over iterations for RandomForest
+# Calculate training loss over iterations for RandomForest
 train_losses = []
-val_losses = []
 
 for n_estimators in range(10, 101, 10):
     clf = RandomForestClassifier(n_estimators=n_estimators, random_state=42)
     clf.fit(X_train, y_train)
     
-    y_train_pred_proba = clf.predict_proba(X_train)
-    y_val_pred_proba = clf.predict_proba(X_val)
-    
-    train_loss = log_loss(y_train, y_train_pred_proba)
-    val_loss = log_loss(y_val, y_val_pred_proba)
+    train_loss = 1 - clf.score(X_train, y_train)
     
     train_losses.append(train_loss)
-    val_losses.append(val_loss)
 
-# Plot the training and validation loss
+# Plot the training loss
 fig, ax = plt.subplots(figsize=(10, 6))
-ax.plot(range(10, 101, 10), train_losses, label='Training Loss')
-ax.plot(range(10, 101, 10), val_losses, label='Validation Loss')
+ax.plot(range(10, 101, 10), train_losses, marker='o')
 ax.set_xlabel('Number of Estimators')
-ax.set_ylabel('Log Loss')
-ax.set_title('Training and Validation Loss vs. Number of Estimators')
-ax.legend()
+ax.set_ylabel('Training Loss')
+ax.set_title('Training Loss vs. Number of Estimators')
 
 st.pyplot(fig)
+
+# Explanation for choosing Random Forest Classifier
+st.write("""
+### Why Random Forest Classifier?
+Random Forest Classifier is chosen for the following reasons:
+- **High Accuracy**: Random Forests generally provide high accuracy compared to other algorithms.
+- **Robustness**: It is robust to overfitting and handles well in high-dimensional spaces.
+- **Implicit Feature Selection**: It automatically selects important features, reducing the need for feature engineering.
+- **Efficiency**: It is computationally efficient and can handle large datasets with high dimensionality.
+- **Versatility**: It can be used for both classification and regression tasks.
+
+Overall, Random Forest Classifier is a powerful algorithm that often yields good results across a variety of datasets without much tuning.
+""")
