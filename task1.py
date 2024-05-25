@@ -15,11 +15,16 @@ def identify_cluster(data_point, model, scaler):
 
 # Streamlit app
 st.title("Task:1 Machine Learning - Clustering")
+st.write("Loading data...")
 
 # Read data from Excel files
 train_data = pd.read_excel('train.xlsx')
 test_data = pd.read_excel('test.xlsx')
 train_data = train_data.iloc[:, :-1]  # Remove the target column
+
+st.write("Data loaded successfully!")
+st.write("First few rows of training data:")
+st.write(train_data.head())
 
 # Data Preprocessing
 features = train_data.columns.tolist()
