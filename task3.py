@@ -47,13 +47,17 @@ def process_data(input_df):
                     outside_duration += current_time - last_outside_time
                 last_outside_time = current_time
         
+        # Convert durations to string format
+        inside_duration_str = str(inside_duration)
+        outside_duration_str = str(outside_duration)
+        
         # Append results to the output dataframe
         new_row = pd.DataFrame({
             'date': [date],
             'pick_activities': [pick_count],
             'place_activities': [place_count],
-            'inside_duration': [inside_duration],
-            'outside_duration': [outside_duration]
+            'inside_duration': [inside_duration_str],
+            'outside_duration': [outside_duration_str]
         })
         
         output_df = pd.concat([output_df, new_row], ignore_index=True)
@@ -61,7 +65,7 @@ def process_data(input_df):
     return output_df
 
 # Streamlit app
-st.title("Activity Data Processor")
+st.title("Task:3 Python")
 
 # URL of the raw CSV file on GitHub
 csv_url = "raw_data.csv"
