@@ -118,7 +118,4 @@ new_data_point = st.text_input("Enter data point (comma-separated values)", "0,0
 new_data_point = list(map(float, new_data_point.split(',')))
 if st.button("Identify Cluster"):
     cluster = identify_cluster(new_data_point, kmeans, scaler)
-    cluster_color = plt.cm.tab10(cluster)[:3]  # Get RGB color components
     st.write(f"The data point belongs to cluster: {cluster}")
-    st.write("Cluster color:")
-    st.markdown(f'<div style="width:50px;height:50px;background-color:rgb({int(cluster_color[0]*255)},{int(cluster_color[1]*255)},{int(cluster_color[2]*255)})"></div>', unsafe_allow_html=True)
