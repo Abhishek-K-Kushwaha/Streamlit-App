@@ -99,10 +99,31 @@ ax.set_zlabel('PC3')
 ax.set_title('3D Cluster Visualization')
 st.pyplot(fig)
 
-# Input for identifying cluster of a new data point
 st.subheader("Identify Cluster for a New Data Point")
 new_data_point = st.text_input("Enter data point (comma-separated values)", "0,0,0")  # Example: 1,2,3
 new_data_point = list(map(float, new_data_point.split(',')))
 if st.button("Identify Cluster"):
     cluster = identify_cluster(new_data_point, kmeans, scaler)
     st.write(f"The data point belongs to cluster: {cluster}")
+    
+    # Plot 2D visualization with highlighted new data point
+    plt.figure()
+    plt.scatter(train_reduced_2d[:, 0], train_reduced_2d[:, 1], c=kmeans.labels_, s=5)
+    plt.scatter(new_data_point[0], new_data_point[1], c='red', marker='x', label='New Data Point')
+    plt.xlabel('PC1')
+    plt.ylabel('PC2')
+    plt.title('2D Cluster Visualization with New Data Point')
+    plt.legend()
+    st.pyplot()
+
+    # Plot 3D visualization with highlighted new data point
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    ax.scatter(train_reduced_3d[:, 0], train_reduced_3d[:, 1], train_reduced_3d[:, 2], c=kmeans.labels_, s=5)
+    ax.scatter(new_data_point[0], new_data_point[1], new_data_point[2], c='red', marker='x', label='New Data Point')
+    ax.set_xlabel('PC1')
+    ax.set_ylabel('PC2')
+    ax.set_zlabel('PC3')
+    ax.set_title('3D Cluster Visualization with New Data Point')
+    ax.legend()
+    st.pyplot(fig)
