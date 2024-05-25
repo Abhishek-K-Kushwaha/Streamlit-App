@@ -113,7 +113,3 @@ if train_file is not None and test_file is not None:
     if st.button("Identify Cluster"):
         cluster = identify_cluster(data_point_input, kmeans, scaler)
         st.write(f"The data point belongs to cluster: {cluster}")
-
-# Run the Streamlit app
-if __name__ == '__main__':
-    st.run()
