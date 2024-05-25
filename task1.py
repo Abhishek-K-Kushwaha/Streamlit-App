@@ -75,7 +75,7 @@ st.pyplot(fig)
 st.write("Optimal number of clusters is 4, as we can see from the above graph.")
 
 # Applying KMeans clustering
-n_clusters = 4  # Optimal number of clusters
+n_clusters = st.slider("Select number of clusters", 1, 10, 4)
 kmeans = KMeans(n_clusters=n_clusters, random_state=42)
 kmeans.fit(train_scaled)
 
