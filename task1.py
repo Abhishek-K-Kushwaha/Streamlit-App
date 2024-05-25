@@ -82,22 +82,35 @@ kmeans.fit(train_scaled)
 # 2D Cluster Visualization
 st.subheader("Cluster Visualization in 2D")
 fig, ax = plt.subplots()
-ax.scatter(train_reduced_2d[:, 0], train_reduced_2d[:, 1], c=kmeans.labels_, s=5)
+scatter = ax.scatter(train_reduced_2d[:, 0], train_reduced_2d[:, 1], c=kmeans.labels_, s=5)
 ax.set_xlabel('PC1')
 ax.set_ylabel('PC2')
 ax.set_title('2D Cluster Visualization')
+
+# Create a legend
+handles, labels = scatter.legend_elements()
+legend_labels = [f'Cluster {label}' for label in range(len(handles))]
+ax.legend(handles, legend_labels, loc='lower right')
+
 st.pyplot(fig)
 
 # 3D Cluster Visualization
 st.subheader("Cluster Visualization in 3D")
 fig = plt.figure(figsize=(7,7))
 ax = fig.add_subplot(111, projection='3d')
-ax.scatter(train_reduced_3d[:, 0], train_reduced_3d[:, 1], train_reduced_3d[:, 2], c=kmeans.labels_, s=5)
+scatter = ax.scatter(train_reduced_3d[:, 0], train_reduced_3d[:, 1], train_reduced_3d[:, 2], c=kmeans.labels_, s=5)
 ax.set_xlabel('PC1')
 ax.set_ylabel('PC2')
 ax.set_zlabel('PC3')
 ax.set_title('3D Cluster Visualization')
+
+# Create a legend
+handles, labels = scatter.legend_elements()
+legend_labels = [f'Cluster {label}' for label in range(len(handles))]
+ax.legend(handles, legend_labels, loc='lower right')
+
 st.pyplot(fig)
+
 
 # Input for identifying cluster of a new data point
 st.subheader("Identify Cluster for a New Data Point")
