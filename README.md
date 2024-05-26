@@ -1,2 +1,2 @@
-# Streamlit-App
-Streamlit app made for Resolute AI Assignment
+# Streamlit-Apps
+Streamlit apps made for Resolute AI Assignment
